@@ -95,7 +95,7 @@
                                                     <xsl:variable name="testAssertionEid" select="uuid:randomUUID()"/>
                                                     <TestAssertion id="EID{$testAssertionEid}">
                                                         <label><xsl:value-of select="concat('Assertion ', position())"/></label>
-                                                        <description>NOT_APPLICABLE</description>
+                                                        <description><xsl:value-of select="./text()"/></description>
                                                         <parent ref="EID{$testStepEid}"/>
                                                         <expectedResult>NOT_APPLICABLE</expectedResult>
                                                         <expression>
