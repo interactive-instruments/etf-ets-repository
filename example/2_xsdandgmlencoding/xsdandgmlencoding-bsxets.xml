@@ -69,7 +69,7 @@
                                             for $file in $db
                                             return 
                                                 let $start := prof:current-ms()
-                                                let $infos := validate:xsd-info($file, "2_xsdandgmlencoding" || file:dir-separator() || 'dummyschema.xsd' )
+                                                let $infos := validate:xsd-info($file, 'https://raw.githubusercontent.com/interactive-instruments/etf-ets-repository/master/example/2_xsdandgmlencoding/dummyschema.xsd' )
                                                 let $duration := prof:current-ms()-$start
                                                 let $logentry := local:log('Validating file ' || local:filename($file) || ': ' || $duration || ' ms')
                                                 let $errors := count($infos)
