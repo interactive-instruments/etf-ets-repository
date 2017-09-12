@@ -2,9 +2,7 @@
 <!-- ########################################################################################## -->
 <!--
     This stylesheet can be used to transform a Schematron file to an ETF version 2.0.x 
-    Executable Test Suite. This stylesheet must be used with the XSLT 2.0 processor
-    SAXON 9 EE !
-    Please note that test expressions may be adjusted manually.
+    Executable Test Suite. Please note that test expressions may be adjusted manually.
     
     Created by Jon Herrmann, (c) 2017 interactive instruments GmbH. This file is licensed 
     under the European Union Public Licence 1.2 
@@ -12,12 +10,14 @@
 <!-- ########################################################################################## -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:uuid="java.util.UUID"
+    xmlns:uuid="http://www.uuid.org"
     xmlns:etf="http://www.interactive-instruments.de/etf/2.0"
     xmlns:sch="http://purl.oclc.org/dsdl/schematron"
     exclude-result-prefixes="uuid xs sch"
     version="2.0">
     
+    <xsl:include href="uuid.xsl"/>
+    <!-- xmlns:uuid="java.util.UUID" -->
     <xsl:param name="translationTemplateId" select="uuid:randomUUID()"/>
     <xsl:param name="tagId" select="uuid:randomUUID()"/>
     
