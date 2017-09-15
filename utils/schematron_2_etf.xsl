@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ########################################################################################## -->
 <!--
-    This stylesheet can be used to transform a Schematron file to an ETF version 2.0.x 
+    This stylesheet can be used to transform a Schematron file to an ETF version 2.0.x
     Executable Test Suite. Please note that test expressions may be adjusted manually.
-    
-    Created by Jon Herrmann, (c) 2017 interactive instruments GmbH. This file is licensed 
-    under the European Union Public Licence 1.2 
+
+    Created by Jon Herrmann, (c) 2017 interactive instruments GmbH. This file is licensed
+    under the European Union Public Licence 1.2
 -->
 <!-- ########################################################################################## -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -15,16 +15,16 @@
     xmlns:sch="http://purl.oclc.org/dsdl/schematron"
     exclude-result-prefixes="uuid xs sch"
     version="2.0">
-    
+
     <xsl:include href="uuid.xsl"/>
     <!-- xmlns:uuid="java.util.UUID" -->
     <xsl:param name="translationTemplateId" select="uuid:randomUUID()"/>
     <xsl:param name="tagId" select="uuid:randomUUID()"/>
-    
+
     <xsl:template match="/sch:schema">
-        
+
         <xsl:variable name="etsEid" select="uuid:randomUUID()"/>
-        
+
         <etf:ExecutableTestSuite xmlns="http://www.interactive-instruments.de/etf/2.0"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             id="EID{$etsEid}"
@@ -76,10 +76,10 @@
                         <parent ref="EID{$etsEid}"/>
                         <testCases>
                             <xsl:for-each select="sch:rule[not(@abstract = 'true')]">
-                                <xsl:variable name="schContext" select="@context"/>                                
+                                <xsl:variable name="schContext" select="@context"/>
                                 <xsl:variable name="testCaseEid" select="uuid:randomUUID()"/>
                                 <TestCase id="EID{$testCaseEid}">
-                                    <label><xsl:value-of select="if(sch:fpi) then sch:fpi else concat('Test Case ', position())"/></label>
+                                    <label><xsl:value-of select="if(@id) then @id else if(sch:fpi) then sch:fpi else concat('Test Case ', position())"/></label>
                                     <description>...</description>
                                     <parent ref="EID{$testModuleEid}"/>
                                     <testSteps>
@@ -94,7 +94,7 @@
                                                 <xsl:for-each select="sch:assert">
                                                     <xsl:variable name="testAssertionEid" select="uuid:randomUUID()"/>
                                                     <TestAssertion id="EID{$testAssertionEid}">
-                                                        <label><xsl:value-of select="concat('Assertion ', position())"/></label>
+                                                        <label><xsl:value-of select="if(@id) then @id else concat('Assertion ', position())"/></label>
                                                         <description><xsl:value-of select="./text()"/></description>
                                                         <parent ref="EID{$testStepEid}"/>
                                                         <expectedResult>NOT_APPLICABLE</expectedResult>
@@ -107,7 +107,7 @@
                                                             order by local:filename($file)
                                                             let $root := $file/element()
                                                             return
-                                                            local:addMessage('TR.schematronError', map { 'filename': local:filename($root), 'error': '<xsl:value-of select="./text()"/>' })) 
+                                                            local:addMessage('TR.schematronError', map { 'filename': local:filename($root), 'error': '<xsl:value-of select="./text()"/>' }))
                                                         </expression>
                                                         <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
                                                     </TestAssertion>
@@ -116,16 +116,16 @@
                                         </TestStep>
                                     </testSteps>
                                 </TestCase>
-                            </xsl:for-each> 
+                            </xsl:for-each>
                         </testCases>
                     </TestModule>
                 </xsl:for-each>
             </testModules>
         </etf:ExecutableTestSuite>
-        
-        
-        
+
+
+
     </xsl:template>
-    
-    
+
+
 </xsl:stylesheet>
