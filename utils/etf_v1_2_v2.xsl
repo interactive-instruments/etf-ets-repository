@@ -2,8 +2,8 @@
 <!-- ########################################################################################## -->
 <!--
     This stylesheet can be used to transform an ETF version 1.0.x assertion file to an ETF 
-    version 2.0.x Executable Test Suite. This stylesheet must be used with the XSLT 2.0 processor
-    SAXON 9 EE !
+    version 2.0.x Executable Test Suite. 
+    
     Please note that only the model structure is mapped, XQuery test expressions must be adjusted
     manually.
     
@@ -13,11 +13,12 @@
 <!-- ########################################################################################## -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:uuid="java.util.UUID"
+    xmlns:uuid="http://www.uuid.org"
     xmlns:etf="http://www.interactive-instruments.de/etf/2.0"
     exclude-result-prefixes="uuid xs"
     version="2.0">
    
+    <xsl:include href="uuid.xsl"/>
     <xsl:param name="translationTemplateId" select="uuid:randomUUID()"/>
     <xsl:param name="tagId" select="uuid:randomUUID()"/>
     

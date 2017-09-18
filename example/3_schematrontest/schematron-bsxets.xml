@@ -1,406 +1,242 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<etf:ExecutableTestSuite xmlns="http://www.interactive-instruments.de/etf/2.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:etf="http://www.interactive-instruments.de/etf/2.0"
-    id="EIDe3b49361-e98e-433b-841c-085bfb8f61e0"
-    xsi:schemaLocation="http://www.interactive-instruments.de/etf/2.0 http://resources.etf-validator.net/schema/v2/service/service.xsd">
-    <itemHash>bQ==</itemHash>
-    <remoteResource>https://github.com/interactive-instruments/etf-ets-repository</remoteResource>
-    <localPath>/auto</localPath>
-    <label>Schematron example</label>
-    <description>See original schematron file</description>
-    <reference>../example-bsxets.xq</reference>
-    <version>2.0.0</version>
-    <author>...</author>
-    <creationDate>2017-09-12T19:12:59.448+02:00</creationDate>
-    <lastEditor>ETF Schematron to ETF Executable Test Suite Transformer</lastEditor>
-    <lastUpdateDate>2017-09-12T19:12:59.448+02:00</lastUpdateDate>
-    <tags>
-        <tag ref="EIDec1b3956-b1f9-4359-814e-7590877f4eb1"/>
-    </tags>
-    <testDriver ref="EID4dddc9e2-1b21-40b7-af70-6a2d156ad130"/>
-    <translationTemplateBundle ref="EID245c67e5-6d28-493e-9dc6-a23de3d81cc0"/>
-    <ParameterList name="ETF Standard Parameters for XML test objects">
-        <parameter name="files_to_test" required="true">
-            <defaultValue>.*</defaultValue>
-            <description ref="TR.filesToTest"/>
-            <allowedValues>.*</allowedValues>
-            <type>string</type>
-        </parameter>
-        <parameter name="tests_to_execute" required="false">
-            <defaultValue>.*</defaultValue>
-            <description ref="TR.testsToExecute"/>
-            <allowedValues>.*</allowedValues>
-            <type>string</type>
-        </parameter>
-    </ParameterList>
-    <supportedTestObjectTypes>
-        <testObjectType ref="EIDe1d4a306-7a78-4a3b-ae2d-cf5f0810853e"/>
-    </supportedTestObjectTypes>
-    <testModules>
-        <TestModule id="EID6bb49e11-c15b-4529-abb7-859c4d47f2bf">
-            <label>Schematron pattern 1</label>
-            <description>...</description>
-            <parent ref="EIDe3b49361-e98e-433b-841c-085bfb8f61e0"/>
-            <testCases>
-                <TestCase id="EIDee2e5b98-8b79-474c-82fa-5917c1327668">
-                    <label>Test Case 1</label>
-                    <description>...</description>
-                    <parent ref="EID6bb49e11-c15b-4529-abb7-859c4d47f2bf"/>
-                    <testSteps>
-                        <TestStep id="EID34b61d0c-203b-4cb6-9278-78468fa5e99a">
-                            <label>IGNORE</label>
-                            <description>IGNORE</description>
-                            <parent ref="EID6bb49e11-c15b-4529-abb7-859c4d47f2bf"/>
-                            <statementForExecution>not applicable</statementForExecution>
-                            <testItemType ref="EIDf483e8e8-06b9-4900-ab36-adad0d7f22f0"/>
-                            <testAssertions>
-                                <TestAssertion id="EID2e1124f5-03a5-4f22-962b-1c0405b5c1e4">
-                                    <label>Assertion 1</label>
-                                    <description> This profile prohibits use of gml:metaDataProperty
-                                        elements for referencing metadata in instance documents. </description>
-                                    <parent ref="EID34b61d0c-203b-4cb6-9278-78468fa5e99a"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*/*/*[not(not(gml:metaDataProperty))]] return (if
-                                        ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' This profile
-                                        prohibits use of gml:metaDataProperty elements for
-                                        referencing metadata in instance documents. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                            </testAssertions>
-                        </TestStep>
-                    </testSteps>
-                </TestCase>
-                <TestCase id="EID379c4600-b2b2-4727-b650-2daa4e7ab61c">
-                    <label>Test Case 2</label>
-                    <description>...</description>
-                    <parent ref="EID6bb49e11-c15b-4529-abb7-859c4d47f2bf"/>
-                    <testSteps>
-                        <TestStep id="EIDc51a0728-e522-428a-ba58-9646e6f51e11">
-                            <label>IGNORE</label>
-                            <description>IGNORE</description>
-                            <parent ref="EID6bb49e11-c15b-4529-abb7-859c4d47f2bf"/>
-                            <statementForExecution>not applicable</statementForExecution>
-                            <testItemType ref="EIDf483e8e8-06b9-4900-ab36-adad0d7f22f0"/>
-                            <testAssertions>
-                                <TestAssertion id="EID79ab75b2-ecd4-4710-8f0f-f7826cb27ae5">
-                                    <label>Assertion 1</label>
-                                    <description> Spatial properties are limited to the set of
-                                        geometric types consisting of point, curve with linear
-                                        and/or circular arc interpolation, planar surface, or
-                                        aggregates thereof. Spatial topology is excluded. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(not(self::gml:Node|self::gml:Edge|self::gml:Face|self::gml:TopoSolid|self::gml:TopoPoint|self::gml:TopoCurve|self::gml:TopoSurface|self::gml:TopoVolume|self::gml:TopoComplex))]]
-                                        return (if ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' Spatial
-                                        properties are limited to the set of geometric types
-                                        consisting of point, curve with linear and/or circular arc
-                                        interpolation, planar surface, or aggregates thereof.
-                                        Spatial topology is excluded. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EID0ed13ec4-ae2c-4cec-a426-7d9c5e649cff">
-                                    <label>Assertion 2</label>
-                                    <description> Curves (standalone or within surfaces) must have
-                                        linear and/or circular arc interpolation (LineString, Curve
-                                        with Arc, Circle or CircleByCenterpoint segments) </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(not(self::gml:Curve) or
-                                        self::gml:Curve/gml:segments[gml:LineStringSegment|gml:Arc|gml:Circle|gml:CircleByCenterPoint])]]
-                                        return (if ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' Curves
-                                        (standalone or within surfaces) must have linear and/or
-                                        circular arc interpolation (LineString, Curve with Arc,
-                                        Circle or CircleByCenterpoint segments) ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EID7027f261-c027-4c74-8bdd-3320e28226c5">
-                                    <label>Assertion 3</label>
-                                    <description> Planar surface types are restricted to Polygon or
-                                        Surface elements. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(not(self::gml:OrientableSurface|self::gml:CompositeSurface|self::gml:PolyhedralSurface|self::gml:Tin|self::gml:TriangulatedSurface))]]
-                                        return (if ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' Planar surface
-                                        types are restricted to Polygon or Surface elements. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EID8e494081-c3bd-417b-9327-7df5141e53a9">
-                                    <label>Assertion 4</label>
-                                    <description> Supported geometry types are restricted to point,
-                                        curve with linear and/or circular arc interpolation, planar
-                                        surface, or aggregates thereof. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(not(self::gml:Solid|self::gml:MultiSolid|self::gml:CompositeSolid|self::gml:CompositeCurve|self::gml:Grid))]]
-                                        return (if ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' Supported
-                                        geometry types are restricted to point, curve with linear
-                                        and/or circular arc interpolation, planar surface, or
-                                        aggregates thereof. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EID5a0bb75d-7fcf-40dc-9c91-ffc56ecca999">
-                                    <label>Assertion 5</label>
-                                    <description> Geometry coordinates shall only be specified using
-                                        the gml:pos element for gml:Point. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(count(self::gml:Point/gml:pos) =
-                                        count(self::gml:Point/*))]] return (if ($filesWithErrors)
-                                        then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' Geometry
-                                        coordinates shall only be specified using the gml:pos
-                                        element for gml:Point. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EID472ce79c-3c9c-4436-8d0f-09f2dcf87263">
-                                    <label>Assertion 6</label>
-                                    <description> Geometry coordinates shall only be specified using
-                                        the gml:pos element for gml:CircleByCenterPoint. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(count(self::gml:CircleByCenterPoint/gml:pos|self::gml:CircleByCenterPoint/gml:radius)
-                                        = count(self::gml:CircleByCenterPoint/*))]] return (if
-                                        ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' Geometry
-                                        coordinates shall only be specified using the gml:pos
-                                        element for gml:CircleByCenterPoint. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EIDa3e68ae4-55de-4aa4-b165-6e34d928a099">
-                                    <label>Assertion 7</label>
-                                    <description> Geometry coordinates shall only be specified using
-                                        the gml:posList element for gml:LineStringSegment. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(count(self::gml:LineStringSegment/gml:posList)
-                                        = count(self::gml:LineStringSegment/*))]] return (if
-                                        ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' Geometry
-                                        coordinates shall only be specified using the gml:posList
-                                        element for gml:LineStringSegment. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EIDe3d47e80-702d-4a4a-bbf9-e64094f5d91a">
-                                    <label>Assertion 8</label>
-                                    <description> Geometry coordinates shall only be specified using
-                                        the gml:posList element for gml:LinearRing. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(count(self::gml:LinearRing/gml:posList) =
-                                        count(self::gml:LinearRing/*))]] return (if
-                                        ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' Geometry
-                                        coordinates shall only be specified using the gml:posList
-                                        element for gml:LinearRing. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EID72b3415c-950c-4ec1-8051-eea97e5f27d1">
-                                    <label>Assertion 9</label>
-                                    <description> Geometry coordinates shall only be specified using
-                                        the gml:posList element for gml:Arc. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(count(self::gml:Arc/gml:posList) =
-                                        count(self::gml:Arc/*))]] return (if ($filesWithErrors) then
-                                        'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' Geometry
-                                        coordinates shall only be specified using the gml:posList
-                                        element for gml:Arc. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EID8229b92f-3c26-4b2c-b4a4-98a0d441c5cc">
-                                    <label>Assertion 10</label>
-                                    <description> Geometry coordinates shall only be specified using
-                                        the gml:posList element for gml:Circle. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(count(self::gml:Circle/gml:posList) =
-                                        count(self::gml:Circle/*))]] return (if ($filesWithErrors)
-                                        then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' Geometry
-                                        coordinates shall only be specified using the gml:posList
-                                        element for gml:Circle. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EID0ce088e1-cf4e-45f6-91b6-d061dcecf134">
-                                    <label>Assertion 11</label>
-                                    <description> This profile restricts instance documents to using
-                                        the property container gml:pointMember for the MultiPoint
-                                        geometry type. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(not(self::gml:MultiPoint/gml:pointMembers))]]
-                                        return (if ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' This profile
-                                        restricts instance documents to using the property container
-                                        gml:pointMember for the MultiPoint geometry type. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EIDa7ab61d5-1f18-4b1a-b092-335fb59dd5b7">
-                                    <label>Assertion 12</label>
-                                    <description> This profile restricts instance documents to using
-                                        the property container gml:curveMember for the MultiCurve
-                                        geometry type. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(not(self::gml:MultiCurve/gml:curveMembers))]]
-                                        return (if ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' This profile
-                                        restricts instance documents to using the property container
-                                        gml:curveMember for the MultiCurve geometry type. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EID0894c793-5469-4fc3-8ef6-3f9768ea632a">
-                                    <label>Assertion 13</label>
-                                    <description> This profile restricts instance documents to using
-                                        the property container gml:surfaceMember for the
-                                        MultiSurface geometry type. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(not(self::gml:MultiSurface/gml:surfaceMembers))]]
-                                        return (if ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' This profile
-                                        restricts instance documents to using the property container
-                                        gml:surfaceMember for the MultiSurface geometry type. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EIDad6932ca-48a5-401e-a313-9ff926b95117">
-                                    <label>Assertion 14</label>
-                                    <description> This profile restricts instance documents to using
-                                        the property container gml:geometryMember for the
-                                        MultiGeometry geometry type. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(not(self::gml:MultiGeometry/gml:geometryMembers))]]
-                                        return (if ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' This profile
-                                        restricts instance documents to using the property container
-                                        gml:geometryMember for the MultiGeometry geometry type. '
-                                        })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EID50dbde62-83a3-4443-93d1-365a357ade00">
-                                    <label>Assertion 15</label>
-                                    <description> The content of gml:Surface elements is restricted
-                                        to gml:PolygonPatch patches. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(count(self::gml:Surface/gml:patches/gml:PolygonPatch)
-                                        = count(self::gml:Surface/gml:patches/*))]] return (if
-                                        ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' The content of
-                                        gml:Surface elements is restricted to gml:PolygonPatch
-                                        patches. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                                <TestAssertion id="EIDecc8888f-be63-4ab5-b36c-58c8eb116a22">
-                                    <label>Assertion 16</label>
-                                    <description> Coordinate reference systems may have 1, 2 or 3
-                                        dimensions. </description>
-                                    <parent ref="EIDc51a0728-e522-428a-ba58-9646e6f51e11"/>
-                                    <expectedResult>NOT_APPLICABLE</expectedResult>
-                                    <expression> let $filesWithErrors :=
-                                        $db[/*//*[not(not(self::*/@srsDimension &gt; 3))]] return
-                                        (if ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                        local:error-statistics('TR.filesWithErrors',
-                                        count($filesWithErrors)), for $file in $filesWithErrors
-                                        order by local:filename($file) let $root := $file/element()
-                                        return local:addMessage('TR.schematronError', map {
-                                        'filename': local:filename($root), 'error': ' Coordinate
-                                        reference systems may have 1, 2 or 3 dimensions. ' })) </expression>
-                                    <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
-                                </TestAssertion>
-                            </testAssertions>
-                        </TestStep>
-                    </testSteps>
-                </TestCase>
-            </testCases>
-        </TestModule>
-    </testModules>
-</etf:ExecutableTestSuite>
+<?xml version="1.0" encoding="UTF-8"?><etf:ExecutableTestSuite xmlns="http://www.interactive-instruments.de/etf/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:etf="http://www.interactive-instruments.de/etf/2.0" xmlns:ii="http://www.interactive-instruments.de" id="EIDe3b49361-e98e-433b-841c-085bfb8f61e0" xsi:schemaLocation="http://www.interactive-instruments.de/etf/2.0 http://resources.etf-validator.net/schema/v2/service/service.xsd"><itemHash>bQ==</itemHash><remoteResource>https://github.com/interactive-instruments/etf-ets-repository</remoteResource><localPath>/auto</localPath><label>Schematron example</label><description>...</description><reference>../example-bsxets.xq</reference><version>1.0.0</version><author>See original schematron file</author><creationDate>2017-09-18T15:52:08.906+02:00</creationDate><lastEditor>ETF Schematron to ETF Executable Test Suite Transformer</lastEditor><lastUpdateDate>2017-09-18T15:52:08.906+02:00</lastUpdateDate><tags><tag ref="EIDec1b3956-b1f9-4359-814e-7590877f4eb1"/></tags><testDriver ref="EID4dddc9e2-1b21-40b7-af70-6a2d156ad130"/><translationTemplateBundle ref="EID245c67e5-6d28-493e-9dc6-a23de3d81cc0"/><ParameterList name="ETF Standard Parameters for XML test objects"><parameter name="files_to_test" required="true"><defaultValue>.*</defaultValue><description ref="TR.filesToTest"/><allowedValues>.*</allowedValues><type>string</type></parameter><parameter name="tests_to_execute" required="false"><defaultValue>.*</defaultValue><description ref="TR.testsToExecute"/><allowedValues>.*</allowedValues><type>string</type></parameter></ParameterList><supportedTestObjectTypes><testObjectType ref="EIDe1d4a306-7a78-4a3b-ae2d-cf5f0810853e"/></supportedTestObjectTypes><testModules><TestModule id="EID904cf372-9c78-11e7-d2e1-09173f13e4c5"><label>Schematron pattern 1</label><description>...</description><parent ref="EIDe3b49361-e98e-433b-841c-085bfb8f61e0"/><testCases><TestCase id="EID904cf374-9c78-11e7-d2e1-09173f13e4c5"><label>Test Case 1</label><description>...</description><parent ref="EID904cf372-9c78-11e7-d2e1-09173f13e4c5"/><testSteps><TestStep id="EID904cf2a4-9c78-11e7-d411-09173f13e4c5"><label>IGNORE</label><description>IGNORE</description><parent ref="EID904cf374-9c78-11e7-d2e1-09173f13e4c5"/><statementForExecution>not applicable</statementForExecution><testItemType ref="EIDf483e8e8-06b9-4900-ab36-adad0d7f22f0"/><testAssertions><TestAssertion id="EID904cf378-9c78-11e7-d2e1-09173f13e4c5"><label>Assertion 1</label><description>
+    This profile prohibits use of gml:metaDataProperty
+    elements for referencing metadata in instance documents.
+</description><parent ref="EID904cf2a4-9c78-11e7-d411-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*/*/*[not(not(gml:metaDataProperty))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.1.1', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion></testAssertions></TestStep></testSteps></TestCase><TestCase id="EID904cf37c-9c78-11e7-d2e2-09173f13e4c5"><label>Test Case 2</label><description>...</description><parent ref="EID904cf372-9c78-11e7-d2e1-09173f13e4c5"/><testSteps><TestStep id="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"><label>IGNORE</label><description>IGNORE</description><parent ref="EID904cf37c-9c78-11e7-d2e2-09173f13e4c5"/><statementForExecution>not applicable</statementForExecution><testItemType ref="EIDf483e8e8-06b9-4900-ab36-adad0d7f22f0"/><testAssertions><TestAssertion id="EID904cf380-9c78-11e7-d2e2-09173f13e4c5"><label>Assertion 1</label><description>
+    Spatial properties are limited to the set of geometric
+    types consisting of point, curve with linear and/or
+    circular arc interpolation, planar surface, or aggregates
+    thereof. Spatial topology is excluded.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(not(self::gml:Node|self::gml:Edge|self::gml:Face|self::gml:TopoSolid|self::gml:TopoPoint|self::gml:TopoCurve|self::gml:TopoSurface|self::gml:TopoVolume|self::gml:TopoComplex))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.1', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf385-9c78-11e7-d2e2-09173f13e4c5"><label>Assertion 2</label><description>
+    Curves (standalone or within surfaces) must have linear
+    and/or circular arc interpolation (LineString, Curve with
+    Arc, Circle or CircleByCenterpoint segments)
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(not(self::gml:Curve) or self::gml:Curve/gml:segments[gml:LineStringSegment|gml:Arc|gml:Circle|gml:CircleByCenterPoint])]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.2', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf38b-9c78-11e7-d2e3-09173f13e4c5"><label>Assertion 3</label><description>
+    Planar surface types are restricted to Polygon or Surface
+    elements.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(not(self::gml:OrientableSurface|self::gml:CompositeSurface|self::gml:PolyhedralSurface|self::gml:Tin|self::gml:TriangulatedSurface))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.3', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf390-9c78-11e7-d2e4-09173f13e4c5"><label>Assertion 4</label><description>
+    Supported geometry types are restricted to point, curve with
+    linear and/or circular arc interpolation, planar surface,
+    or aggregates thereof.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(not(self::gml:Solid|self::gml:MultiSolid|self::gml:CompositeSolid|self::gml:CompositeCurve|self::gml:Grid))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.4', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf395-9c78-11e7-d2e4-09173f13e4c5"><label>Assertion 5</label><description>
+    Geometry coordinates shall only be specified using the gml:pos element for
+    gml:Point.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(count(self::gml:Point/gml:pos) = count(self::gml:Point/*))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.5', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf398-9c78-11e7-d2e4-09173f13e4c5"><label>Assertion 6</label><description>
+    Geometry coordinates shall only be specified using the gml:pos
+    element for gml:CircleByCenterPoint.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(count(self::gml:CircleByCenterPoint/gml:pos|self::gml:CircleByCenterPoint/gml:radius) = count(self::gml:CircleByCenterPoint/*))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.6', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf39e-9c78-11e7-d2e5-09173f13e4c5"><label>Assertion 7</label><description>
+    Geometry coordinates shall only be specified using the gml:posList
+    element for gml:LineStringSegment.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(count(self::gml:LineStringSegment/gml:posList) =                 count(self::gml:LineStringSegment/*))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.7', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf3a1-9c78-11e7-d2e5-09173f13e4c5"><label>Assertion 8</label><description>
+    Geometry coordinates shall only be specified using the gml:posList
+    element for gml:LinearRing.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(count(self::gml:LinearRing/gml:posList) =                 count(self::gml:LinearRing/*))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.8', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf3a4-9c78-11e7-d2e6-09173f13e4c5"><label>Assertion 9</label><description>
+    Geometry coordinates shall only be specified using the gml:posList
+    element for gml:Arc.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(count(self::gml:Arc/gml:posList) = count(self::gml:Arc/*))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.9', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf3a7-9c78-11e7-d2e6-09173f13e4c5"><label>Assertion 10</label><description>
+    Geometry coordinates shall only be specified using the gml:posList
+    element for gml:Circle.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(count(self::gml:Circle/gml:posList) =                 count(self::gml:Circle/*))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.10', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf3ac-9c78-11e7-d2e6-09173f13e4c5"><label>Assertion 11</label><description>
+    This profile restricts instance documents to using the property
+    container gml:pointMember for the MultiPoint geometry type.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(not(self::gml:MultiPoint/gml:pointMembers))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.11', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf3b0-9c78-11e7-d2e7-09173f13e4c5"><label>Assertion 12</label><description>
+    This profile restricts instance documents to using the property
+    container gml:curveMember for the MultiCurve geometry type.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(not(self::gml:MultiCurve/gml:curveMembers))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.12', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf3b3-9c78-11e7-d2e7-09173f13e4c5"><label>Assertion 13</label><description>
+    This profile restricts instance documents to using the property
+    container gml:surfaceMember for the MultiSurface geometry type.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(not(self::gml:MultiSurface/gml:surfaceMembers))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.13', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf3b6-9c78-11e7-d2e7-09173f13e4c5"><label>Assertion 14</label><description>
+    This profile restricts instance documents to using the property
+    container gml:geometryMember for the MultiGeometry geometry type.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(not(self::gml:MultiGeometry/gml:geometryMembers))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.14', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf3bb-9c78-11e7-d2e8-09173f13e4c5"><label>Assertion 15</label><description>
+    The content of gml:Surface elements is restricted to
+    gml:PolygonPatch patches.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(count(self::gml:Surface/gml:patches/gml:PolygonPatch) =                 count(self::gml:Surface/gml:patches/*))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.15', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion><TestAssertion id="EID904cf3be-9c78-11e7-d2e8-09173f13e4c5"><label>Assertion 16</label><description>
+    Coordinate reference systems may have 1, 2 or 3 dimensions.
+</description><parent ref="EID904cf2a5-9c78-11e7-d560-09173f13e4c5"/><expectedResult>NOT_APPLICABLE</expectedResult><expression>
+    
+    let $filesWithErrors := $db[/*//*[not(not(self::*/@srsDimension &gt; 3))]]
+    return
+    (if ($filesWithErrors) then 'FAILED' else 'PASSED',
+    local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
+    for $file in $filesWithErrors
+    order by local:filename($file)
+    let $root := $file/element()
+    return
+    local:addMessage('TR.schtron.Schematron.example.err.1.2.16', map { 'filename': local:filename($root)  }))
+</expression><testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/></TestAssertion></testAssertions></TestStep></testSteps></TestCase></testCases></TestModule></testModules></etf:ExecutableTestSuite>
