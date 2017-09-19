@@ -13,15 +13,22 @@ All stylesheets were tested with Saxon HE 9.7.
 
 ## Schematron
 ### Transform a Schematron file to an ETF version 2 Executable Test Suite
-Use a XSL Transformer  with the [schematron_2_etf_ets.xsl](schematron_2_etf_ets.xsl) Stylesheet and set the Schematron file as input file.
+Use a XSL Transformer  with the [schematron_2_etf_ets.xsl](schematron_2_etf_ets.xsl)
+Stylesheet and set the Schematron file as input file.
 The generated Executable Test Suite must be inserted into a new file with the
 name pattern `<Name of ETS without whitespaces>-bsxets.xml`. Take the
-id from the Executable Test Suite and set it as parameter
-`translationTemplateId` for the Stylesheet
+ID from the Executable Test Suite and pass it as parameter
+`translationTemplateId` to the Stylesheet
 [schematron_2_etf_translation_template_bundle.xsl](schematron_2_etf_translation_template_bundle.xsl).
 The generated Translation Template Bundle must be inserted into a new file with
 the name pattern
 `TranslationTemplateBundle-<EID of TranslationTemplateBundle>.xml`.
+
+If your Schematron file uses namespaces that are not declared in the
+`testquery.xq` file, they must be manually added in the form:
+
+`declare namespace nsPrefix='http://namespace-uri';`
+
 
 ## Update an existing  ETF version 2 Executable Test Suite from a Schematron file
 If a Schematron file changed and the changes have to be reflected in an already
@@ -37,7 +44,7 @@ for both Stylesheets; [schematron_2_etf_ets.xsl](schematron_2_etf_ets.xsl) and
 [schematron_2_etf_translation_template_bundle.xsl](schematron_2_etf_translation_template_bundle.xsl). Afterwards the generated ETS file and the Translation Template Bundle can be copied into the project folder of the ETF instance, to override the two existing files.
 
 
-# Transform ETF version 1 test project to ETF version 2 Executable Test Suite
+## Transform ETF version 1 test project to ETF version 2 Executable Test Suite
 Use a XSL Transformer with the [etf_v1_2_v2.xsl](etf_v1_2_v2.xsl)
 Stylesheet and set the old ETF v1 test project as input file.
 For each Assertion Group an etf:ExecutableTestSuite will be generated.
