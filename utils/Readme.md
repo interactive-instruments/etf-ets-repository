@@ -30,7 +30,7 @@ If your Schematron file uses namespaces that are not declared in the
 `declare namespace nsPrefix='http://namespace-uri';`
 
 
-## Update an existing  ETF version 2 Executable Test Suite from a Schematron file
+### Update an existing  ETF version 2 Executable Test Suite from a Schematron file
 If a Schematron file changed and the changes have to be reflected in an already
 generated and deployed Executable Test Suite, the ETS can be regenerated.
 In order to provide consistent IDs in the framework, the parameter `etsId`
