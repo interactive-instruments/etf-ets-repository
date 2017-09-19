@@ -5,8 +5,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 // @author jonherrmann
 
-group = 'eu.inspire.validation'
-description = 'Repository for Executable Test Suites of the INSPIRE validator'
+group = 'de.interactive_instruments.etf.ets'
+description = 'Executable Test Suites Repository'
 
 apply plugin: 'groovy'
 
