@@ -46,7 +46,8 @@
         <xsl:param name="node" as="node()"/>
         <!-- &#10; is the new line character -->
         <xsl:for-each select="$node/sch:let">
-            <xsl:value-of select="concat('let $', @name, ' := ', @value, '&#10;')"/>
+            <!-- Replace document() function with BaseX doc() function -->
+            <xsl:value-of select="concat('let $', @name, ' := ', replace(@value, 'document(', 'doc('), '&#10;')"/>
         </xsl:for-each>
     </xsl:function>
 
@@ -143,7 +144,7 @@
                                                     <TestAssertion id="EID{$testAssertionEid}">
                                                         <label><xsl:value-of select="if(@id) then @id else concat('Assertion ', position())"/></label>
                                                         <!-- Known restriction: variables are no replaced -->
-                                                        <description><xsl:value-of select="./text()"/></description>
+                                                        <description><xsl:value-of select="normalize-space(text())"/></description>
                                                         <parent ref="{$testStepEid}"/>
                                                         <expectedResult>NOT_APPLICABLE</expectedResult>
                                                         
