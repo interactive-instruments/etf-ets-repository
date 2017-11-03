@@ -7,12 +7,10 @@ This directory contains 3 stylesheets that can be used to:
  to an ETF version 2 Executable Test Suite
  Executable Test Suite (manual modification are required afterwards!)
 
-
-
 All stylesheets were tested with Saxon HE 9.7.
 
 ## Schematron
-### Transform a Schematron file to an ETF version 2 Executable Test Suite
+### Transform a Schematron 1.0 file to an ETF version 2 Executable Test Suite
 Use a XSL Transformer  with the [schematron_2_etf_ets.xsl](schematron_2_etf_ets.xsl)
 Stylesheet and set the Schematron file as input file.
 The generated Executable Test Suite must be inserted into a new file with the

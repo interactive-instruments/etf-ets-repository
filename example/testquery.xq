@@ -1,3 +1,22 @@
+declare namespace csw='http://www.opengis.net/cat/csw/2.0.2';
+declare namespace gsr='http://www.isotc211.org/2005/gsr';
+declare namespace gss='http://www.isotc211.org/2005/gss';
+declare namespace gts='http://www.isotc211.org/2005/gts';
+declare namespace gmx='http://www.isotc211.org/2005/gmx';
+declare namespace srv='http://www.isotc211.org/2005/srv';
+declare namespace gco='http://www.isotc211.org/2005/gco';
+declare namespace gmd='http://www.isotc211.org/2005/gmd';
+declare namespace gml='http://www.opengis.net/gml/3.2';
+declare namespace gml31='http://www.opengis.net/gml';
+declare namespace xsi='http://www.w3.org/2001/XMLSchema-instance';
+declare namespace xlink='http://www.w3.org/1999/xlink';
+declare namespace etf='http://www.interactive-instruments.de/etf/2.0';
+declare namespace atom='http://www.w3.org/2005/Atom';
+declare namespace wfs='http://www.opengis.net/wfs/2.0';
+declare namespace wcs='http://www.opengis.net/wcs/2.0';
+declare namespace sos='http://www.opengis.net/sos/2.0';
+declare namespace wms='http://www.opengis.net/wms';
+
 declare namespace au3='urn:x-inspire:specification:gmlas:AdministrativeUnits:3.0';
 declare namespace ad3='urn:x-inspire:specification:gmlas:Addresses:3.0';
 declare namespace cp3='urn:x-inspire:specification:gmlas:CadastralParcels:3.0'; 
@@ -33,12 +52,6 @@ declare namespace tn-w='http://inspire.ec.europa.eu/schemas/tn-w/4.0';
 declare namespace bu-core3d='http://inspire.ec.europa.eu/schemas/bu-core3d/4.0';
 declare namespace net='http://inspire.ec.europa.eu/schemas/net/4.0';
 declare namespace base='http://inspire.ec.europa.eu/schemas/base/3.3'; 
-declare namespace gml='http://www.opengis.net/gml/3.2'; 
-declare namespace wfs='http://www.opengis.net/wfs/2.0'; 
-declare namespace xsi='http://www.w3.org/2001/XMLSchema-instance'; 
-declare namespace xlink='http://www.w3.org/1999/xlink'; 
-declare namespace etf='http://www.interactive-instruments.de/etf/2.0';
-declare namespace atom='http://www.w3.org/2005/Atom';
 declare namespace uuid='java.util.UUID';
 
 import module namespace functx='http://www.functx.com';
@@ -53,6 +66,96 @@ declare variable $idMap external;
 declare variable $testObjectId external;
 declare variable $logFile external;
 declare variable $statFile external;
+
+
+
+
+
+declare function local:not-seq($n) as xs:boolean
+{
+    if(empty($n)) 
+    then true()
+    else if(count($n) > 1)
+    then some $i in $n satisfies not($i)
+    else not($n)
+};
+
+declare function local:string-seq($sseq) as xs:string*
+{
+    for $s in $sseq return string($s)
+};
+
+declare function local:number-seq($sseq) as xs:double*
+{
+    for $s in $sseq return number($s)
+};
+
+declare function local:concat-seq($sseq) as xs:string
+{
+    string-join($sseq, '')
+};
+
+declare function local:concat-seq($sseq1, $sseq2) as xs:string
+{
+    string-join(($sseq1, $sseq2), '')
+};
+
+declare function local:concat-seq($sseq1, $sseq2, $sseq3) as xs:string
+{
+    string-join(($sseq1, $sseq2, $sseq3), '')
+};
+
+declare function local:concat-seq($sseq1, $sseq2, $sseq3, $sseq4) as xs:string
+{
+    string-join(($sseq1, $sseq2, $sseq3, $sseq4), '')
+};
+
+declare function local:concat-seq($sseq1, $sseq2, $sseq3, $sseq4, $sseq5) as xs:string
+{
+    string-join(($sseq1, $sseq2, $sseq3, $sseq4, $sseq5), '')
+};
+
+declare function local:concat-seq($sseq1, $sseq2, $sseq3, $sseq4, $sseq5, $sseq6) as xs:string
+{
+    string-join(($sseq1, $sseq2, $sseq3, $sseq4, $sseq5, $sseq6), '')
+};
+
+declare function local:substring-seq($sseq, $startingLog as xs:double, $length as xs:double) as xs:string*
+{
+    for $s in $sseq return substring($s, $startingLog, $length)
+};
+
+declare function local:substring-before-seq($sseq, $arg2 as xs:string?) as xs:string*
+{
+    for $s in $sseq return substring-before($s, $arg2)
+};
+
+declare function local:substring-after-seq($sseq, $arg2 as xs:string?) as xs:string*
+{
+    for $s in $sseq return substring-after($s, $arg2)
+};
+
+declare function local:normalize-space-seq($sseq) as xs:string*
+{
+    for $s in $sseq return normalize-space($s)
+};
+
+declare function local:contains-any($sseq as xs:string*, $searchStrings as xs:string* ) as xs:boolean {
+   some $str in $sseq
+   satisfies
+   some $searchString in $searchStrings
+   satisfies contains($str,$searchString)
+};
+
+declare function local:contains-seq($sseq as xs:string*, $searchStrings as xs:string* ) as xs:boolean* {
+   for $str in $sseq return
+   some $searchString in $searchStrings
+   satisfies contains($str,$searchString)
+};
+
+
+
+
 
 declare function local:strippath($path as xs:string) as xs:string
 {
