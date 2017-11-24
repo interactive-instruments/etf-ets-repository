@@ -22,6 +22,12 @@ The generated Translation Template Bundle must be inserted into a new file with
 the name pattern
 `TranslationTemplateBundle-<EID of TranslationTemplateBundle>.xml`.
 
+#### Generating multiple TranslationTemplateBundles (!)
+If multiple TranslationTemplateBundles are generated, they must be merged into
+one. The names of the TranslationTemplates must be unique. This can be verified
+by validating the resulting files with a XSD validator.
+
+#### Namespaces
 If your Schematron file uses namespaces that are not declared in the
 `testquery.xq` file, they must be manually added in the form:
 

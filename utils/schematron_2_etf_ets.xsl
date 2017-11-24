@@ -232,6 +232,9 @@
                                                             local:addMessage('<xsl:value-of select="$errorTR"/>', map { 'filename': local:filename($root) <xsl:value-of select="$errorTokens"/> }))
                                                         </expression>
                                                         <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
+                                                        <etf:translationTemplates>
+                                                            <etf:translationTemplate ref="{$errorTR}"/>
+                                                        </etf:translationTemplates>
                                                     </TestAssertion>
                                                 </xsl:for-each>
                                             </testAssertions>
