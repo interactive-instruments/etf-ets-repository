@@ -301,8 +301,8 @@ declare variable $translationTemplateBundle external := $projDir || file:dir-sep
 declare variable $dbDir external;
 declare variable $dbBaseName external := "etf-test";
 declare variable $dbCount external := 1;
-(: declare variable $etsFile external := $projDir || file:dir-separator() || "geometrytest" || file:dir-separator() || "geometrytest-bsxets.xml"; :)
-declare variable $etsFile external := $projDir || file:dir-separator() || "2_xsdandgmlencoding" || file:dir-separator() || "xsdandgmlencoding-bsxets.xml";
+declare variable $etsFile external := $projDir || file:dir-separator() || "1_geometrytest" || file:dir-separator() || "geometrytest-bsxets.xml"; 
+(: declare variable $etsFile external := $projDir || file:dir-separator() || "3_schematrontest" || file:dir-separator() || "protected-bsxets.xml"; :)
 (: Project internals :)
 declare variable $testQueryFile := "testquery.xq";
 

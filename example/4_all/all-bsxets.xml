@@ -19,7 +19,7 @@
         <tag ref="EIDec1b3956-b1f9-4359-814e-7590877f4eb1"/>
     </tags>
     <testDriver ref="EID4dddc9e2-1b21-40b7-af70-6a2d156ad130"/>
-    <translationTemplateBundle ref="EID245c67e5-6d28-493e-9dc6-a23de3d81cc0"/>
+    <translationTemplateBundle ref="EID27117afb-11aa-4e45-aa3d-0e1e65bdccb8"/>
     <ParameterList name="ETF Standard Parameters for XML test objects">
         <parameter name="files_to_test" required="true">
             <defaultValue>.*</defaultValue>
@@ -40,7 +40,7 @@
     <dependencies>
         <executableTestSuite ref="EID99b8aecd-4082-4773-b316-a138e6ed8b35"/>
         <executableTestSuite ref="EID4a065dbd-dfbd-4428-8228-5e835523cc04"/>
-        <executableTestSuite ref="EIDe3b49361-e98e-433b-841c-085bfb8f61e0"/>
+        <executableTestSuite ref="EID736afd62-bfca-11e7-d238-09173f13e4c5"/>
     </dependencies>
     <testModules>
         <TestModule id="EID0251141d-6ee1-47cd-8a8b-5ff68ce7da23">

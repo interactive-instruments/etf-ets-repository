@@ -13,7 +13,7 @@
 	<lastEditor>interactive instruments GmbH</lastEditor>
 	<lastUpdateDate>2016-08-15T00:00:00Z</lastUpdateDate>
 	<testDriver ref="EID4dddc9e2-1b21-40b7-af70-6a2d156ad130"/>
-	<translationTemplateBundle ref="EID1a19c3a8-9e76-41d9-bac8-14490162561c"/>
+	<translationTemplateBundle ref="EID27117afb-11aa-4e45-aa3d-0e1e65bdccb8"/>
 	<ParameterList name="ETF Standard Parameters for XML test objects">
 		<parameter name="files_to_test" required="true">
 			<defaultValue>.*</defaultValue>
