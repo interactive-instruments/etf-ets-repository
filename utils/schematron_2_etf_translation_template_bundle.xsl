@@ -39,7 +39,7 @@
             <xsl:comment>This Translation Template Bundle extends the standard error messages from Translation Template Bundle EID27117afb-11aa-4e45-aa3d-0e1e65bdccb8</xsl:comment>
             <xsl:comment>Translation Template Bundle EID27117afb-11aa-4e45-aa3d-0e1e65bdccb8 can be downloaded from:</xsl:comment>
             <xsl:comment>https://raw.githubusercontent.com/interactive-instruments/etf-ets-repository/master/generic/include-metadata/TranslationTemplateBundle-EID27117afb-11aa-4e45-aa3d-0e1e65bdccb8.xml</xsl:comment>
-            <etf:parent ref="EID27117afb-11aa-4e45-aa3d-0e1e65bdccb8" xsi:type="loc"/>
+            <etf:parent ref="EID27117afb-11aa-4e45-aa3d-0e1e65bdccb8" />
             <translationTemplateCollections>   
             <xsl:for-each select="sch:pattern[not(@abstract = 'true')]">
                 <xsl:variable name="testModulePos" select="position()"/>
