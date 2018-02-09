@@ -27,13 +27,6 @@ If multiple TranslationTemplateBundles are generated, they must be merged into
 one. The names of the TranslationTemplates must be unique. This can be verified
 by validating the resulting files with a XSD validator.
 
-#### Namespaces
-If your Schematron file uses namespaces that are not declared in the
-`testquery.xq` file, they must be manually added in the form:
-
-`declare namespace nsPrefix='http://namespace-uri';`
-
-
 ### Update an existing  ETF version 2 Executable Test Suite from a Schematron file
 If a Schematron file changed and the changes have to be reflected in an already
 generated and deployed Executable Test Suite, the ETS can be regenerated.

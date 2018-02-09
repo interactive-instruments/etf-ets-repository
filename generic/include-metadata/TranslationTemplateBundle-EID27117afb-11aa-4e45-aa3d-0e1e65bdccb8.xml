@@ -15,6 +15,11 @@
 			<TranslationTemplate language="en" name="TR.testsToExecute">A regular expression. All test assertions in the executable test suite where the label matches the regular expression will be used in the test run, all other will be skipped. The default value '.*' matches all test assertions.</TranslationTemplate>
 		 </translationTemplates>
 	  </LangTranslationTemplateCollection>
+	  <LangTranslationTemplateCollection name="TR.xmlNamespaces">
+		 <translationTemplates>
+			<TranslationTemplate language="en" name="TR.xmlNamespaces">The XQuery namespace declarations for the assertions in the test suite. Change the default value only for debugging purposes.</TranslationTemplate>
+		 </translationTemplates>
+	  </LangTranslationTemplateCollection>
 	  <LangTranslationTemplateCollection name="TR.limitMessages">
 		 <translationTemplates>
 			<TranslationTemplate language="en" name="TR.limitMessages">The maximum number of errors to report for each test assertion. If more errors are found, only the selected number of messages will be reported including an information about the total number of errors found.</TranslationTemplate>
@@ -80,6 +85,11 @@
 	  <LangTranslationTemplateCollection name="TR.filesWithErrors">
 		 <translationTemplates>
 			<TranslationTemplate language="en" name="TR.filesWithErrors">The dataset has {count} file(s) with errors for this assertion.</TranslationTemplate>
+		 </translationTemplates>
+	  </LangTranslationTemplateCollection>
+	  <LangTranslationTemplateCollection name="TR.errors">
+		 <translationTemplates>
+			<TranslationTemplate language="en" name="TR.errors">The file set has {count} error(s) for this assertion.</TranslationTemplate>
 		 </translationTemplates>
 	  </LangTranslationTemplateCollection>
 	  <LangTranslationTemplateCollection name="TR.featuresWithErrors">

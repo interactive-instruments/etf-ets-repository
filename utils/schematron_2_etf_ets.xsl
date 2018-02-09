@@ -6,7 +6,7 @@
     
     Please note that test expressions may be adjusted manually.
 
-    Created by Jon Herrmann, (c) 2017 interactive instruments GmbH. This file is licensed
+    Created by Jon Herrmann, (c) 2018 interactive instruments GmbH. This file is licensed
     under the European Union Public Licence 1.2
 -->
 <!-- ########################################################################################## -->
@@ -52,25 +52,17 @@
     <xsl:param name="testObjectTypeId">EIDe1d4a306-7a78-4a3b-ae2d-cf5f0810853e</xsl:param>
     <!-- ########################################################################################## -->
     
+    <!-- regex pattern to identify characters at the end of a variable name in expressions-->
+    <xsl:variable name="variableNameRegex">([^\p{L}\p{N}_].*)?$</xsl:variable>
+    
     <xsl:function name="ii:translateFcts">
         <xsl:param name="exp" as="xs:string"/>
         <!-- Replace document() function with BaseX doc() http://docs.basex.org/wiki/Databases#XML_Documents function -->
         <xsl:variable name="fctTrans1" select="replace($exp, 'document\(', 'doc(')"/>
         <!-- Replace current() with . current() does not exist in XQuery -->
         <xsl:variable name="fctTrans2" select="replace($fctTrans1, 'current\(\)', '.')"/>
-        <!-- Replace not() with notOrEmpty() as our sequence would throw an FORG0006 error (in schematron just one node is selected in the context) -->
-        <xsl:variable name="fctTrans3" select="replace($fctTrans2, 'not\(', 'local:not-seq(')"/>
-        
-        <xsl:variable name="fctTrans4" select="replace($fctTrans3, 'concat\(', 'local:concat-seq(')"/>
-        <xsl:variable name="fctTrans5" select="replace($fctTrans4, 'substring\(', 'local:substring-seq(')"/>
-        <xsl:variable name="fctTrans6" select="replace($fctTrans5, 'substring-before\(', 'local:substring-before-seq(')"/>
-        <xsl:variable name="fctTrans7" select="replace($fctTrans6, 'substring-after\(', 'local:substring-after-seq(')"/>
-        <xsl:variable name="fctTrans8" select="replace($fctTrans7, 'string\(', 'local:string-seq(')"/>
-        <xsl:variable name="fctTrans9" select="replace($fctTrans8, 'number\(', 'local:number-seq(')"/>
-        <xsl:variable name="fctTrans10" select="replace($fctTrans9, 'normalize-space\(', 'local:normalize-space-seq(')"/>
-        <xsl:variable name="fctTrans11" select="replace($fctTrans10, 'contains\(', 'local:contains-seq(')"/>
        
-        <xsl:variable name="fctTrans" select="$fctTrans11"/>
+        <xsl:variable name="fctTrans" select="$fctTrans2"/>
         <xsl:if test="contains($fctTrans, 'doc(') and not(contains($fctTrans, 'doc(''http') or contains($fctTrans, 'doc(''file'))">
             <xsl:message terminate="no">Warning: a resource path must be corrected manually. If you are referencing a local file, set an absoulte path starting with file:/// . 
                 See also http://www.xqueryfunctions.com/xq/fn_doc.html . Expression: <xsl:value-of select="$fctTrans"/>
@@ -78,34 +70,52 @@
         </xsl:if>
         <xsl:value-of select="$fctTrans"/>
     </xsl:function>
-    
+
+    <xsl:function name="ii:variables">
+        <xsl:param name="node" as="node()"/>
+        <xsl:param name="predefVariables" as="xs:string"/>
+		  <xsl:choose>
+		  	<xsl:when test="$predefVariables ne ''">
+			  <xsl:value-of select="concat($predefVariables, ';', string-join($node/sch:let/@name,';'))"/>
+			</xsl:when>
+			<xsl:otherwise>  
+			  <xsl:value-of select="string-join($node/sch:let/@name,';')"/>
+			</xsl:otherwise>  
+		  </xsl:choose>
+    </xsl:function>
+   
     <xsl:function name="ii:schVars">
         <xsl:param name="node" as="node()"/>
         <xsl:param name="extContext" as="xs:boolean"/>
         <xsl:param name="rootContext" as="xs:string"/>
-        
-        <xsl:variable name="ctx" select="$node/@context"/>
-        <xsl:variable name="contextStart" select="
-            if($extContext) 
-            then concat($rootContext, if(starts-with($ctx, '/')) 
-            then $ctx 
-            else concat('/', $ctx), '/(') 
-            else concat($rootContext, '/(')"/>
+        <xsl:param name="namespaces" as="xs:string"/>
+        <xsl:param name="predefVariables" as="xs:string"/>
         
         <xsl:for-each select="$node/sch:let">
             <!-- &#10; is the new line character -->
             <xsl:choose>
                 <!-- Check if the type of the assigned value is a string -->
-                <xsl:when test="starts-with(@value, '''')"><xsl:value-of select="concat('let $', @name, ' := ', @value, '&#10;')"/></xsl:when>
+                <xsl:when test="starts-with(@value, '''') or starts-with(@value, '&quot;')"><xsl:value-of select="concat('let $', @name, ' := ', @value, '&#10;')"/></xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="concat('let $', @name, ' := ', $contextStart, ii:translateFcts(@value), ')&#10;')"/>
+						  <xsl:variable name="variables" select="ii:variables($node, $predefVariables)"/>
+						  <xsl:variable name="expr">
+							  <xsl:value-of select="@value"/>
+						  </xsl:variable>
+let $<xsl:value-of select="@name"/> := xquery:eval(&quot;<xsl:value-of select="$namespaces"/><xsl:for-each select="tokenize($variables,';')"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">declare variable $<xsl:value-of select="."/> external; </xsl:if></xsl:for-each><xsl:value-of select="ii:translateFcts($expr)"/>&quot;, map { '': <xsl:value-of select="$rootContext"/><xsl:for-each select="tokenize($variables,';')"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">, '<xsl:value-of select="."/>': $<xsl:value-of select="."/></xsl:if></xsl:for-each>})
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
     </xsl:function>
 
     <xsl:template match="/sch:schema">
-        <xsl:variable name="schemaLevelVars" select="ii:schVars(., true(), '$db')" />
+        <xsl:variable name="namespaces">
+        	<xsl:for-each select="//sch:ns">declare namespace <xsl:value-of select="@prefix"/>=&apos;<xsl:value-of select="@uri"/>&apos;; </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="schemaLevelVars" select="ii:schVars(., true(), '$file', $namespaces, '')" />
+        <xsl:variable name="schemaLevelVariables" select="ii:variables(.,'')" />
+        <!--
+        <xsl:variable name="schemaLevelMapentries" select="ii:mapentries(.,'')" />
+        -->
         <etf:ExecutableTestSuite xmlns="http://www.interactive-instruments.de/etf/2.0"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             id="EID{replace($etsId, 'EID', '')}"
@@ -154,6 +164,12 @@
                     <allowedValues>.*</allowedValues>
                     <type>string</type>
                 </parameter>
+                <parameter name="xml_namespaces" required="false">
+                    <defaultValue><xsl:value-of select="$namespaces"/>&#10;</defaultValue>
+                    <description ref="TR.xmlNamespaces"/>
+                    <allowedValues>.*</allowedValues>
+                    <type>string</type>
+                </parameter>
             </ParameterList>
             <supportedTestObjectTypes>
                 <!-- Type GML feature collections, see http://docs.etf-validator.net/Developer_manuals/Developing_Executable_Test_Suites.html#basex-test-object-types -->
@@ -162,7 +178,11 @@
             <testModules>
                 <xsl:for-each select="sch:pattern[not(@abstract = 'true')]">
                     <xsl:variable name="testModuleEid" select="concat('EID', uuid:randomUUID(.))"/>
-                    <xsl:variable name="patternLevelVars" select="string-join(($schemaLevelVars, ii:schVars(., true(), '$db')), '')" />
+                    <xsl:variable name="patternLevelVars" select="string-join(($schemaLevelVars, ii:schVars(., true(), '$file', $namespaces, $schemaLevelVariables)), '')" />
+						  <xsl:variable name="patternLevelVariables" select="ii:variables(., $schemaLevelVariables)" />
+<!--
+						  <xsl:variable name="patternLevelMapentries" select="ii:mapentries(., $schemaLevelMapentries)" />
+						  -->
                     <xsl:variable name="testModulePos" select="position()"/>
                     <TestModule id="{$testModuleEid}">
                         <label><xsl:value-of select="if(sch:title) then sch:title else if (@fpi) then @fpi else concat('Schematron pattern ', position())"/></label>
@@ -173,7 +193,11 @@
                             <xsl:for-each select="sch:rule[not(@abstract = 'true')]">
                                 <xsl:variable name="schContext" select="@context"/>
                                 <xsl:variable name="testCaseEid" select="concat('EID', uuid:randomUUID(.))"/>
-                                <xsl:variable name="ruleLevelVars" select="concat('&#10;', string-join(($patternLevelVars, ii:schVars(., false(), '$i')), ''))" />
+                                <xsl:variable name="ruleLevelVars" select="concat('&#10;', string-join(($patternLevelVars, ii:schVars(., false(), '$i', $namespaces, $patternLevelVariables)), ''))" />
+										  <xsl:variable name="ruleLevelVariables" select="ii:variables(., $patternLevelVariables)" />
+										  <!--
+										  <xsl:variable name="ruleLevelMapentries" select="ii:mapentries(., $patternLevelMapentries)" />
+										  -->
                                 <xsl:variable name="testCasePos" select="position()"/>
                                 <TestCase id="{$testCaseEid}">
                                     <label><xsl:value-of select="if(@fpi) then @fpi else if(@id) then @id else concat('Test Case ', $testCasePos)"/></label>
@@ -213,23 +237,26 @@
                                                                 <xsl:value-of select="if (position() != last()) then ', ' else ''"/>
                                                             </xsl:for-each>
                                                         </xsl:variable>
+                                                        <xsl:variable name="expr" select="@test"/>
+                                                        <xsl:variable name="variablesSeq" select="tokenize($ruleLevelVariables,';')"/>
                                                         
                                                         <expression>                                                            
                                                             
-                                                            let $filesWithErrors := for $i in $db<xsl:value-of select="$schContext"/>
-                                                            
-                                                            <xsl:value-of select="$ruleLevelVars"/>
-                                                            where local:not-seq($i/<xsl:value-of select="ii:translateFcts(@test)"/>)
-                                                            return $i
+let $errors := for $file in $db
+return
+for $i in $file<xsl:value-of select="$schContext"/>
+<xsl:value-of select="$ruleLevelVars"/>
+where not(xquery:eval(&quot;<xsl:value-of select="$namespaces"/><xsl:for-each select="$variablesSeq"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">declare variable $<xsl:value-of select="."/> external; </xsl:if></xsl:for-each><xsl:value-of select="ii:translateFcts(@test)"/>&quot;, map { '': $i<xsl:for-each select="$variablesSeq"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">, '<xsl:value-of select="."/>': $<xsl:value-of select="."/></xsl:if></xsl:for-each>}))
+return $i
 
-                                                            return
-                                                            (if ($filesWithErrors) then 'FAILED' else 'PASSED',
-                                                            local:error-statistics('TR.filesWithErrors', count($filesWithErrors)),
-                                                            for $file in $filesWithErrors
-                                                            order by local:filename($file)
-                                                            let $root := $file
-                                                            return
-                                                            local:addMessage('<xsl:value-of select="$errorTR"/>', map { 'filename': local:filename($root) <xsl:value-of select="$errorTokens"/> }))
+
+return
+(if ($errors) then 'FAILED' else 'PASSED',
+local:error-statistics('TR.errors', count($errors)),
+for $error in $errors
+order by local:filename($error)
+return
+local:addMessage('<xsl:value-of select="$errorTR"/>', map { 'filename': local:filename($error) <xsl:value-of select="$errorTokens"/> }))
                                                         </expression>
                                                         <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
                                                         <etf:translationTemplates>
