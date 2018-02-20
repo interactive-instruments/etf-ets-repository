@@ -27,6 +27,21 @@ If multiple TranslationTemplateBundles are generated, they must be merged into
 one. The names of the TranslationTemplates must be unique. This can be verified
 by validating the resulting files with a XSD validator.
 
+#### Restrictions of the Schematron to XQuery transformation
+
+* XPath 3.1, used by XQuery 3.1, is not fully backwards compatible with XPath 1.0 and 2.0 (used by the xslt and xslt2 query bindings of Schematron).  Annex H of the XPath 3.1 standard documents the incompatibilities.
+  * See https://www.w3.org/TR/xpath-31/#id-incompatibilities
+  * The book "XQuery - Search Across a Variety of XML Data", 2nd ed, has a chapter on "XQuery for XSLT Users" that also discusses XQuery backward compatibility with XPath 1.0.
+* The following language constructs supported by Schematron and the Schematron xslt and xslt2 query bindings are not translated:
+  * xsl:key
+  * abstract rules
+  * inclusions
+  * abstract patterns and parameters
+  * phases
+  * reports
+  * diagnostics
+* The XSLT function current() is always translated to '.'. No explicit reference is made to a particular document or rule context.
+
 ### Update an existing  ETF version 2 Executable Test Suite from a Schematron file
 If a Schematron file changed and the changes have to be reflected in an already
 generated and deployed Executable Test Suite, the ETS can be regenerated.
