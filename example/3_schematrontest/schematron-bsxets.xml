@@ -7,12 +7,15 @@
 	<description>...</description>
 	<reference>../example-bsxets.xq</reference>
 	<version>1.0.0</version>
-	<author>See original schematron file:/Users/portele/Documents/Dropbox/ETF/github/etf-ets-repository/example/3_schematrontest/schematron.sch</author>
+	<author>See original schematron file:/etf-ets-repository/example/3_schematrontest/schematron.sch</author>
 	<creationDate>2018-02-09T10:48:37.335+01:00</creationDate>
 	<lastEditor>ETF Schematron to ETF Executable Test Suite Transformer</lastEditor>
 	<lastUpdateDate>2018-02-09T10:48:37.335+01:00</lastUpdateDate>
+	<tags>
+		<tag ref="EIDec1b3956-b1f9-4359-814e-7590877f4eb1"/>
+	</tags>
 	<testDriver ref="EID4dddc9e2-1b21-40b7-af70-6a2d156ad130"/>
-	<translationTemplateBundle ref="EID669c2672-0d7e-11e8-d269-09173f13e4c5"/>
+	<translationTemplateBundle ref="EIDf1b7cb72-bfcb-11e7-d212-09173f13e4c5"/>
 	<ParameterList name="ETF Standard Parameters for XML test objects">
 		<parameter name="files_to_test" required="true">
 			<defaultValue>.*</defaultValue>
@@ -34,7 +37,7 @@
 		</parameter>
 	</ParameterList>
 	<supportedTestObjectTypes>
-		<testObjectType ref="EIDe1d4a306-7a78-4a3b-ae2d-cf5f0810853e"/>
+		<testObjectType ref="EID5a60dded-0cb0-4977-9b06-16c6c2321d2e"/>
 	</supportedTestObjectTypes>
 	<testModules>
 		<TestModule id="EID669c2742-0d7e-11e8-d2e1-09173f13e4c5">
