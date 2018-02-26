@@ -3,7 +3,7 @@
 	<itemHash>bQ==</itemHash>
 	<remoteResource>https://github.com/interactive-instruments/etf-ets-repository</remoteResource>
 	<localPath>/auto</localPath>
-	<label>Schematron schematron</label>
+	<label>Schematron example 2</label>
 	<description>...</description>
 	<reference>../example-bsxets.xq</reference>
 	<version>1.0.0</version>
