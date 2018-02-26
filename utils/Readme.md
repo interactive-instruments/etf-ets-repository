@@ -27,14 +27,7 @@ If multiple TranslationTemplateBundles are generated, they must be merged into
 one. The names of the TranslationTemplates must be unique. This can be verified
 by validating the resulting files with a XSD validator.
 
-#### Namespaces
-If your Schematron file uses namespaces that are not declared in the
-`testquery.xq` file, they must be manually added in the form:
-
-`declare namespace nsPrefix='http://namespace-uri';`
-
 #### Restrictions of the Schematron to XQuery transformation
-
 * XPath 3.1, used by XQuery 3.1, is not fully backwards compatible with XPath 1.0 and 2.0 (used by the xslt and xslt2 query bindings of Schematron).  Annex H of the XPath 3.1 standard documents the incompatibilities.
   * See https://www.w3.org/TR/xpath-31/#id-incompatibilities
   * The book "XQuery - Search Across a Variety of XML Data", 2nd ed, has a chapter on "XQuery for XSLT Users" that also discusses XQuery backward compatibility with XPath 1.0.

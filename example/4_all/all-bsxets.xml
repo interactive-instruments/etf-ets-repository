@@ -40,7 +40,7 @@
     <dependencies>
         <executableTestSuite ref="EID99b8aecd-4082-4773-b316-a138e6ed8b35"/>
         <executableTestSuite ref="EID4a065dbd-dfbd-4428-8228-5e835523cc04"/>
-        <executableTestSuite ref="EID736afd62-bfca-11e7-d238-09173f13e4c5"/>
+        <executableTestSuite ref="EIDf1b7cb72-bfcb-11e7-d212-09173f13e4c5"/>
     </dependencies>
     <testModules>
         <TestModule id="EID0251141d-6ee1-47cd-8a8b-5ff68ce7da23">
