@@ -1,4 +1,8 @@
-<TranslationTemplateBundle xmlns="http://www.interactive-instruments.de/etf/2.0" id="EID27117afb-11aa-4e45-aa3d-0e1e65bdccb8">
+<TranslationTemplateBundle xmlns="http://www.interactive-instruments.de/etf/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:etf="http://www.interactive-instruments.de/etf/2.0"
+	id="EID27117afb-11aa-4e45-aa3d-0e1e65bdccb8"
+	xsi:schemaLocation="http://www.interactive-instruments.de/etf/2.0 http://resources.etf-validator.net/schema/v2/service/service.xsd">
 	<translationTemplateCollections>
 	 	  <LangTranslationTemplateCollection name="TR.blankLine">
 		 <translationTemplates>
@@ -87,9 +91,9 @@
 			<TranslationTemplate language="en" name="TR.filesWithErrors">The dataset has {count} file(s) with errors for this assertion.</TranslationTemplate>
 		 </translationTemplates>
 	  </LangTranslationTemplateCollection>
-	  <LangTranslationTemplateCollection name="TR.errors">
+	  <LangTranslationTemplateCollection name="TR.fileErrors">
 		 <translationTemplates>
-			<TranslationTemplate language="en" name="TR.errors">The file set has {count} error(s) for this assertion.</TranslationTemplate>
+		 	<TranslationTemplate language="en" name="TR.fileErrors">The file set has {count} error(s) for this assertion.</TranslationTemplate>
 		 </translationTemplates>
 	  </LangTranslationTemplateCollection>
 	  <LangTranslationTemplateCollection name="TR.featuresWithErrors">
