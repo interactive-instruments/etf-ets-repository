@@ -101,7 +101,7 @@
 						  <xsl:variable name="expr">
 							  <xsl:value-of select="@value"/>
 						  </xsl:variable>
-let $<xsl:value-of select="@name"/> := xquery:eval(&quot;<xsl:value-of select="$namespaces"/><xsl:for-each select="tokenize($variables,';')"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">declare variable $<xsl:value-of select="."/> external; </xsl:if></xsl:for-each><xsl:value-of select="ii:translateFcts($expr)"/>&quot;, map { '': <xsl:value-of select="$rootContext"/><xsl:for-each select="tokenize($variables,';')"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">, '<xsl:value-of select="."/>': $<xsl:value-of select="."/></xsl:if></xsl:for-each>})
+                            let $<xsl:value-of select="@name"/> := xquery:eval(&quot;<xsl:value-of select="$namespaces"/><xsl:for-each select="tokenize($variables,';')"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">declare variable $<xsl:value-of select="."/> external; </xsl:if></xsl:for-each><xsl:value-of select="ii:translateFcts($expr)"/>&quot;, map { '': <xsl:value-of select="$rootContext"/><xsl:for-each select="tokenize($variables,';')"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">, '<xsl:value-of select="."/>': $<xsl:value-of select="."/></xsl:if></xsl:for-each>})
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
@@ -193,7 +193,7 @@ let $<xsl:value-of select="@name"/> := xquery:eval(&quot;<xsl:value-of select="$
                             <xsl:for-each select="sch:rule[not(@abstract = 'true')]">
                                 <xsl:variable name="schContext" select="@context"/>
                                 <xsl:variable name="testCaseEid" select="concat('EID', uuid:randomUUID(.))"/>
-                                <xsl:variable name="ruleLevelVars" select="concat('&#10;', string-join(($patternLevelVars, ii:schVars(., false(), '$i', $namespaces, $patternLevelVariables)), ''))" />
+                                <xsl:variable name="ruleLevelVars" select="concat('&#10;', string-join(($patternLevelVars, ii:schVars(., false(), '$nodeInFile', $namespaces, $patternLevelVariables)), ''))" />
 										  <xsl:variable name="ruleLevelVariables" select="ii:variables(., $patternLevelVariables)" />
 										  <!--
 										  <xsl:variable name="ruleLevelMapentries" select="ii:mapentries(., $patternLevelMapentries)" />
@@ -244,19 +244,16 @@ let $<xsl:value-of select="@name"/> := xquery:eval(&quot;<xsl:value-of select="$
                                                             
 let $errors := for $file in $db
 return
-for $i in $file<xsl:value-of select="$schContext"/>
+for $nodeInFile in $file<xsl:value-of select="$schContext"/>
 <xsl:value-of select="$ruleLevelVars"/>
-where not(xquery:eval(&quot;<xsl:value-of select="$namespaces"/><xsl:for-each select="$variablesSeq"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">declare variable $<xsl:value-of select="."/> external; </xsl:if></xsl:for-each><xsl:value-of select="ii:translateFcts(@test)"/>&quot;, map { '': $i<xsl:for-each select="$variablesSeq"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">, '<xsl:value-of select="."/>': $<xsl:value-of select="."/></xsl:if></xsl:for-each>}))
-return $i
+where not(xquery:eval(&quot;<xsl:value-of select="$namespaces"/><xsl:for-each select="$variablesSeq"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">declare variable $<xsl:value-of select="."/> external; </xsl:if></xsl:for-each><xsl:value-of select="ii:translateFcts(@test)"/>&quot;, map { '': $nodeInFile<xsl:for-each select="$variablesSeq"><xsl:if test="matches($expr,concat('\$',.,$variableNameRegex))">, '<xsl:value-of select="."/>': $<xsl:value-of select="."/></xsl:if></xsl:for-each>}))
+order by local:filename($nodeInFile)
+return local:addMessage('<xsl:value-of select="$errorTR"/>', map { 'filename': local:filename($nodeInFile) <xsl:value-of select="$errorTokens"/> })
 
 
-return
-(if ($errors) then 'FAILED' else 'PASSED',
-local:error-statistics('TR.errors', count($errors)),
-for $error in $errors
-order by local:filename($error)
-return
-local:addMessage('<xsl:value-of select="$errorTR"/>', map { 'filename': local:filename($error) <xsl:value-of select="$errorTokens"/> }))
+                                                            return
+                                                            (if ($errors) then 'FAILED' else 'PASSED',
+                                                            local:error-statistics('TR.errors', count($errors)), $errors)
                                                         </expression>
                                                         <testItemType ref="EIDf0edc596-49d2-48d6-a1a1-1ac581dcde0a"/>
                                                         <etf:translationTemplates>
